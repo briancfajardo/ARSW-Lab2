@@ -2,23 +2,14 @@ package edu.eci.arsw.primefinder;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PrimeFinderThread extends Thread{
 
 	
 	int a,b;
 
-	private Boolean flag = true;
-
-	public Boolean getFlag() {
-		return flag;
-	}
-
-	public void setFlag(Boolean flag) {
-		this.flag = flag;
-	}
-
-	private List<Integer> primes=new LinkedList<Integer>();
+	private final List<Integer> primes=new LinkedList<Integer>();
 	private volatile boolean running = true;
 	
 	public PrimeFinderThread(int a, int b) {
@@ -37,22 +28,28 @@ public class PrimeFinderThread extends Thread{
 
 	public void run(){
 		long startTime = System.currentTimeMillis();
-
+		boolean detenido = false;
 		for (int i=a;i<=b;i++){
 			if (isPrime(i)){
-				synchronized (flag){
-					primes.add(i);
+				synchronized (this){
+					try {
+						if (System.currentTimeMillis() - startTime >= 5000 && !detenido){
+							System.out.println("The total number of primes found is: "+ primes.size());
+							detenido = true;
+							wait();
+						}
+					} catch (InterruptedException e) {
+						throw new RuntimeException(e);
+					}
 				}
+				primes.add(i);
 				System.out.println(i);
 			}
-			if (System.currentTimeMillis() - startTime >= 5000){
-				running = false;
-				a = i;
-			}
-
 		}
-		
-		
+		System.out.println("In the end, this thread found "+ primes.size() + " threads");
+	}
+	public synchronized void resumeThread() {
+		notifyAll();
 	}
 	
 	boolean isPrime(int n) {
@@ -63,12 +60,4 @@ public class PrimeFinderThread extends Thread{
 	    }
 	    return true;
 	}
-
-	public List<Integer> getPrimes() {
-		return primes;
-	}
-	
-	
-	
-	
 }
