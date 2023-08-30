@@ -5,6 +5,7 @@ public class RegistroLlegada {
 	private int ultimaPosicionAlcanzada=1;
 
 	private String ganador=null;
+	private final Object lock = new Object();
 	
 	public String getGanador() {
 		return ganador;
@@ -19,7 +20,9 @@ public class RegistroLlegada {
 	}
 
 	public void setUltimaPosicionAlcanzada(int ultimaPosicionAlcanzada) {
-		this.ultimaPosicionAlcanzada = ultimaPosicionAlcanzada;
+		synchronized (lock) {
+			this.ultimaPosicionAlcanzada = ultimaPosicionAlcanzada;
+		}
 	}
 
 	

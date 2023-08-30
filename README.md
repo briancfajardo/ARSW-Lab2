@@ -2,7 +2,10 @@ Escuela Colombiana de Ingeniería
 
 Arquitecturas de Software – ARSW
 
+
 ####Taller – programación concurrente, condiciones de carrera y sincronización de hilos. EJERCICIO INDIVIDUAL O EN PAREJAS.
+
+ --- Integrantes: Camilo Fajardo y Andrea Durán
 
 #####Parte I – Antes de terminar la clase.
 
@@ -10,7 +13,16 @@ Creación, puesta en marcha y coordinación de hilos.
 
 1. Revise el programa “primos concurrentes” (en la carpeta parte1), dispuesto en el paquete edu.eci.arsw.primefinder. Este es un programa que calcula los números primos entre dos intervalos, distribuyendo la búsqueda de los mismos entre hilos independientes. Por ahora, tiene un único hilo de ejecución que busca los primos entre 0 y 30.000.000. Ejecútelo, abra el administrador de procesos del sistema operativo, y verifique cuantos núcleos son usados por el mismo.
 
+![](./img/media/1thread.jpeg)
+
+Hay 2 núcleos y 4 procesadores lógicos usándose como se puede ver en la imagen
+
 2. Modifique el programa para que, en lugar de resolver el problema con un solo hilo, lo haga con tres, donde cada uno de éstos hará la tarcera parte del problema original. Verifique nuevamente el funcionamiento, y nuevamente revise el uso de los núcleos del equipo.
+
+![](./img/media/3threads.jpeg)
+
+Hay 2 núcleos y 4 procesadores lógicos usándose como se puede ver en la imagen.
+A diferencia de la imagen de 1 solo hilo, este alcanza alturas más altas según la gráfica, a pesar de que pareciera que siguen el mismo patrón de comportamiento 
 
 3. Lo que se le ha pedido es: debe modificar la aplicación de manera que cuando hayan transcurrido 5 segundos desde que se inició la ejecución, se detengan todos los hilos y se muestre el número de primos encontrados hasta el momento. Luego, se debe esperar a que el usuario presione ENTER para reanudar la ejecución de los mismo.
 
