@@ -59,29 +59,6 @@ public class PrimeFinderThread extends Thread{
 	}
 
 
-	public void runFirstVersion(){
-		long startTime = System.currentTimeMillis();
-		boolean detenido = false;
-		for (int i=a;i<=b;i++){
-			if (isPrime(i)){
-				synchronized (this){
-					try {
-						if (System.currentTimeMillis() - startTime >= 5000 && !detenido){
-							System.out.println("The total number of primes found is: "+ primes.size());
-							detenido = true;
-							wait();
-						}
-					} catch (InterruptedException e) {
-						throw new RuntimeException(e);
-					}
-				}
-				primes.add(i);
-				System.out.println(i);
-			}
-		}
-		System.out.println("In the end, this thread found "+ primes.size() + " threads");
-	}
-
 
 	/**
 	 * Checks if a given number is prime.
